@@ -16,6 +16,10 @@
 		C62616481A809E330081B8C5 /* CTUILayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C62616471A809E330081B8C5 /* CTUILayoutTests.m */; };
 		C62616541A809F8F0081B8C5 /* CTUIContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C62616531A809F8F0081B8C5 /* CTUIContainer.m */; };
 		C62616571A80A0CA0081B8C5 /* UIView+LayoutElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C62616561A80A0CA0081B8C5 /* UIView+LayoutElement.m */; };
+		C68506321A80AED700EB8634 /* CTUIBox.m in Sources */ = {isa = PBXBuildFile; fileRef = C68506311A80AED700EB8634 /* CTUIBox.m */; };
+		C68506351A80AEF800EB8634 /* CTUIVBox.m in Sources */ = {isa = PBXBuildFile; fileRef = C68506341A80AEF800EB8634 /* CTUIVBox.m */; };
+		C68506381A80AF1200EB8634 /* CTUIHBox.m in Sources */ = {isa = PBXBuildFile; fileRef = C68506371A80AF1200EB8634 /* CTUIHBox.m */; };
+		C685063B1A80AF3D00EB8634 /* CTUIGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = C685063A1A80AF3D00EB8634 /* CTUIGroup.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +50,14 @@
 		C62616531A809F8F0081B8C5 /* CTUIContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTUIContainer.m; sourceTree = "<group>"; };
 		C62616551A80A0CA0081B8C5 /* UIView+LayoutElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LayoutElement.h"; sourceTree = "<group>"; };
 		C62616561A80A0CA0081B8C5 /* UIView+LayoutElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LayoutElement.m"; sourceTree = "<group>"; };
+		C68506301A80AED700EB8634 /* CTUIBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTUIBox.h; sourceTree = "<group>"; };
+		C68506311A80AED700EB8634 /* CTUIBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTUIBox.m; sourceTree = "<group>"; };
+		C68506331A80AEF800EB8634 /* CTUIVBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTUIVBox.h; sourceTree = "<group>"; };
+		C68506341A80AEF800EB8634 /* CTUIVBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTUIVBox.m; sourceTree = "<group>"; };
+		C68506361A80AF1200EB8634 /* CTUIHBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTUIHBox.h; sourceTree = "<group>"; };
+		C68506371A80AF1200EB8634 /* CTUIHBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTUIHBox.m; sourceTree = "<group>"; };
+		C68506391A80AF3D00EB8634 /* CTUIGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTUIGroup.h; sourceTree = "<group>"; };
+		C685063A1A80AF3D00EB8634 /* CTUIGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTUIGroup.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +145,14 @@
 				C62616531A809F8F0081B8C5 /* CTUIContainer.m */,
 				C62616551A80A0CA0081B8C5 /* UIView+LayoutElement.h */,
 				C62616561A80A0CA0081B8C5 /* UIView+LayoutElement.m */,
+				C68506301A80AED700EB8634 /* CTUIBox.h */,
+				C68506311A80AED700EB8634 /* CTUIBox.m */,
+				C68506331A80AEF800EB8634 /* CTUIVBox.h */,
+				C68506341A80AEF800EB8634 /* CTUIVBox.m */,
+				C68506361A80AF1200EB8634 /* CTUIHBox.h */,
+				C68506371A80AF1200EB8634 /* CTUIHBox.m */,
+				C68506391A80AF3D00EB8634 /* CTUIGroup.h */,
+				C685063A1A80AF3D00EB8634 /* CTUIGroup.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -237,8 +257,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C68506351A80AEF800EB8634 /* CTUIVBox.m in Sources */,
 				C62616341A809E330081B8C5 /* ViewController.m in Sources */,
 				C62616311A809E330081B8C5 /* AppDelegate.m in Sources */,
+				C68506381A80AF1200EB8634 /* CTUIHBox.m in Sources */,
+				C68506321A80AED700EB8634 /* CTUIBox.m in Sources */,
+				C685063B1A80AF3D00EB8634 /* CTUIGroup.m in Sources */,
 				C62616541A809F8F0081B8C5 /* CTUIContainer.m in Sources */,
 				C62616571A80A0CA0081B8C5 /* UIView+LayoutElement.m in Sources */,
 				C626162E1A809E330081B8C5 /* main.m in Sources */,
@@ -434,6 +458,7 @@
 				C626164D1A809E330081B8C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C626164E1A809E330081B8C5 /* Build configuration list for PBXNativeTarget "CTUILayoutTests" */ = {
 			isa = XCConfigurationList;
@@ -442,6 +467,7 @@
 				C62616501A809E330081B8C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
