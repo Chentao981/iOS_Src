@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIView+LayoutElement.h"
 
 @interface CTUIGroup : UIView
 
