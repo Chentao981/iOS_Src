@@ -14,6 +14,8 @@
 		C62616391A809E330081B8C5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C62616381A809E330081B8C5 /* Images.xcassets */; };
 		C626163C1A809E330081B8C5 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C626163A1A809E330081B8C5 /* LaunchScreen.xib */; };
 		C62616481A809E330081B8C5 /* CTUILayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C62616471A809E330081B8C5 /* CTUILayoutTests.m */; };
+		C62616541A809F8F0081B8C5 /* CTUIContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = C62616531A809F8F0081B8C5 /* CTUIContainer.m */; };
+		C62616571A80A0CA0081B8C5 /* UIView+LayoutElement.m in Sources */ = {isa = PBXBuildFile; fileRef = C62616561A80A0CA0081B8C5 /* UIView+LayoutElement.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,10 @@
 		C62616411A809E330081B8C5 /* CTUILayoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CTUILayoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C62616461A809E330081B8C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C62616471A809E330081B8C5 /* CTUILayoutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTUILayoutTests.m; sourceTree = "<group>"; };
+		C62616521A809F8F0081B8C5 /* CTUIContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTUIContainer.h; sourceTree = "<group>"; };
+		C62616531A809F8F0081B8C5 /* CTUIContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTUIContainer.m; sourceTree = "<group>"; };
+		C62616551A80A0CA0081B8C5 /* UIView+LayoutElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LayoutElement.h"; sourceTree = "<group>"; };
+		C62616561A80A0CA0081B8C5 /* UIView+LayoutElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LayoutElement.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +87,7 @@
 		C626162A1A809E330081B8C5 /* CTUILayout */ = {
 			isa = PBXGroup;
 			children = (
+				C62616511A809F4F0081B8C5 /* Class */,
 				C626162F1A809E330081B8C5 /* AppDelegate.h */,
 				C62616301A809E330081B8C5 /* AppDelegate.m */,
 				C62616321A809E330081B8C5 /* ViewController.h */,
@@ -117,6 +124,17 @@
 				C62616461A809E330081B8C5 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C62616511A809F4F0081B8C5 /* Class */ = {
+			isa = PBXGroup;
+			children = (
+				C62616521A809F8F0081B8C5 /* CTUIContainer.h */,
+				C62616531A809F8F0081B8C5 /* CTUIContainer.m */,
+				C62616551A80A0CA0081B8C5 /* UIView+LayoutElement.h */,
+				C62616561A80A0CA0081B8C5 /* UIView+LayoutElement.m */,
+			);
+			path = Class;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +239,8 @@
 			files = (
 				C62616341A809E330081B8C5 /* ViewController.m in Sources */,
 				C62616311A809E330081B8C5 /* AppDelegate.m in Sources */,
+				C62616541A809F8F0081B8C5 /* CTUIContainer.m in Sources */,
+				C62616571A80A0CA0081B8C5 /* UIView+LayoutElement.m in Sources */,
 				C626162E1A809E330081B8C5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
