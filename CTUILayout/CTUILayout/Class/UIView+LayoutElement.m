@@ -118,9 +118,7 @@ static const char INCLUDE_IN_LAYOUT;
 	NSNumber *oldValue = objc_getAssociatedObject(self, &INCLUDE_IN_LAYOUT);
 	if ([oldValue charValue] ^ includeInLayout) {
 		objc_setAssociatedObject(self, (void *)&INCLUDE_IN_LAYOUT, [NSNumber numberWithChar:includeInLayout], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-		if (self.superview) {
-			[self.superview setNeedsLayout];
-		}
+		[self setSuperviewNeedsLayout];
 	}
 }
 
@@ -138,26 +136,26 @@ static const char INCLUDE_IN_LAYOUT;
 	if (oldValue != newValue) {
 		if (nil == newValue || nil == oldValue) {
 			objc_setAssociatedObject(self, key, newValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-			if (self.superview) {
-				[self.superview setNeedsLayout];
-			}
+			[self setSuperviewNeedsLayout];
 		}
 		else {
 			if (oldValueFloatValue != newValueFloatValue) {
 				objc_setAssociatedObject(self, key, newValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-				if (self.superview) {
-					[self.superview setNeedsLayout];
-				}
+				[self setSuperviewNeedsLayout];
 			}
 		}
 	}
 	else {
 		if (oldValueFloatValue != newValueFloatValue) {
 			objc_setAssociatedObject(self, key, newValue, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-			if (self.superview) {
-				[self.superview setNeedsLayout];
-			}
+			[self setSuperviewNeedsLayout];
 		}
+	}
+}
+
+- (void)setSuperviewNeedsLayout {
+	if (self.superview) {
+		[self.superview setNeedsLayout];
 	}
 }
 
