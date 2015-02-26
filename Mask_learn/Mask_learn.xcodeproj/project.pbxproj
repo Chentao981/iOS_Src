@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C6A5D3571A9F06D200BF8113 /* CircleLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6A5D3561A9F06D200BF8113 /* CircleLoopView.m */; };
 		C6DFD4F01A8897180011A13C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6DFD4EF1A8897180011A13C /* Foundation.framework */; };
 		C6DFD4F21A8897180011A13C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6DFD4F11A8897180011A13C /* CoreGraphics.framework */; };
 		C6DFD4F41A8897180011A13C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6DFD4F31A8897180011A13C /* UIKit.framework */; };
@@ -37,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C6A5D3551A9F06D200BF8113 /* CircleLoopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleLoopView.h; sourceTree = "<group>"; };
+		C6A5D3561A9F06D200BF8113 /* CircleLoopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleLoopView.m; sourceTree = "<group>"; };
 		C6DFD4EC1A8897180011A13C /* Mask_learn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mask_learn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6DFD4EF1A8897180011A13C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C6DFD4F11A8897180011A13C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -132,6 +135,8 @@
 				C6FE54991A8897A8006404BC /* MainView.m */,
 				C6FE549B1A8898DC006404BC /* CircleView.h */,
 				C6FE549C1A8898DC006404BC /* CircleView.m */,
+				C6A5D3551A9F06D200BF8113 /* CircleLoopView.h */,
+				C6A5D3561A9F06D200BF8113 /* CircleLoopView.m */,
 			);
 			path = Mask_learn;
 			sourceTree = "<group>";
@@ -264,6 +269,7 @@
 			files = (
 				C6DFD5001A8897180011A13C /* AppDelegate.m in Sources */,
 				C6FE549D1A8898DC006404BC /* CircleView.m in Sources */,
+				C6A5D3571A9F06D200BF8113 /* CircleLoopView.m in Sources */,
 				C6FE549A1A8897A8006404BC /* MainView.m in Sources */,
 				C6FE54971A88976B006404BC /* MainViewController.m in Sources */,
 				C6DFD4FC1A8897180011A13C /* main.m in Sources */,
