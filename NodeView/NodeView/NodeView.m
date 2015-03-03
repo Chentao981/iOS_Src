@@ -8,7 +8,8 @@
 
 #import "NodeView.h"
 #import "CircleView.h"
-@interface NodeView()
+#import "NodeViewLayer.h"
+@interface NodeView()<NodeViewLayerDelegate>
 @property (nonatomic,strong)CALayer *imageLayer;
 @property (nonatomic,strong)CAShapeLayer *maskLayer;
 @property (nonatomic,strong)CircleView *circleView;
@@ -18,13 +19,26 @@
 @end
 
 @implementation NodeView
+{
+    CGPoint beganPoint;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor=[UIColor clearColor];
+        [(NodeViewLayer *)self.layer setNodeViewLayerDelegate:self];
         
+        UITapGestureRecognizer *tapGestureRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTapHandler)];
+        tapGestureRecognizer.numberOfTapsRequired=1;
+        tapGestureRecognizer.numberOfTouchesRequired=1;
+        [self addGestureRecognizer:tapGestureRecognizer];
+        
+        
+        UIPanGestureRecognizer *panGestureRecognizer=[[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(viewPanHandler:)];
+        [self addGestureRecognizer:panGestureRecognizer];
+        
+        self.backgroundColor=[UIColor clearColor];
         self.imageLayer=[[CALayer alloc]init];
         [self.layer addSublayer:self.imageLayer];
         
@@ -37,6 +51,68 @@
         self.showLoading=NO;
     }
     return self;
+}
+
+-(void)viewTapHandler:(UIPanGestureRecognizer *)panGestureRecognizer{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(nodeViewTap:)]) {
+        [self.delegate nodeViewTap:self];
+    }
+}
+
+
+-(void)viewPanHandler:(UIPanGestureRecognizer *)panGestureRecognizer{
+    CGPoint centerPoint = [panGestureRecognizer locationInView:self];
+    switch (panGestureRecognizer.state) {
+        case UIGestureRecognizerStateBegan:{
+            beganPoint=centerPoint;
+            if (self.delegate && [self.delegate respondsToSelector:@selector(nodeViewTouchesBegan:)]) {
+                [self.delegate nodeViewTouchesBegan:self];
+            }
+            break;
+        }
+        case UIGestureRecognizerStateChanged:{
+            CGFloat offsetx = centerPoint.x - beganPoint.x;
+            CGFloat offsety = centerPoint.y - beganPoint.y;
+            self.center = CGPointMake(self.center.x + offsetx, self.center.y + offsety);
+            if (self.delegate && [self.delegate respondsToSelector:@selector(nodeViewTouchesMoved:)]) {
+                [self.delegate nodeViewTouchesMoved:self];
+            }
+            break;
+        }
+        case UIGestureRecognizerStateEnded:{
+            if (self.delegate && [self.delegate respondsToSelector:@selector(nodeViewTouchesEnded:)]) {
+                [self.delegate nodeViewTouchesEnded:self];
+            }
+            break;
+        }
+        case UIGestureRecognizerStateCancelled:{
+            if (self.delegate && [self.delegate respondsToSelector:@selector(nodeViewTouchesCancelled:)]) {
+                [self.delegate nodeViewTouchesCancelled:self];
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}
+
++(Class)layerClass{
+    return [NodeViewLayer class];
+}
+
+-(void)positionChangeWithLayer:(CALayer *)layer andNewPosition:(CGPoint)position{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(positionChangeWithNodeView:)]) {
+        [self.delegate positionChangeWithNodeView:self];
+    }
+}
+
+
+-(void)setToPoint:(CGPoint)toPoint{
+    [(NodeViewLayer *)self.layer setToPoint:toPoint];
+}
+
+-(CGPoint)toPoint{
+    return [(NodeViewLayer *)self.layer toPoint];
 }
 
 

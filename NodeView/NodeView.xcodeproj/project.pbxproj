@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C65A65131AA58130003DE36D /* NodeViewLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C65A65121AA58130003DE36D /* NodeViewLayer.m */; };
 		C6C92EAF1A9F0E4100A82AB5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6C92EAE1A9F0E4100A82AB5 /* Foundation.framework */; };
 		C6C92EB11A9F0E4100A82AB5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6C92EB01A9F0E4100A82AB5 /* CoreGraphics.framework */; };
 		C6C92EB31A9F0E4100A82AB5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6C92EB21A9F0E4100A82AB5 /* UIKit.framework */; };
@@ -39,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C65A65111AA58130003DE36D /* NodeViewLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeViewLayer.h; sourceTree = "<group>"; };
+		C65A65121AA58130003DE36D /* NodeViewLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodeViewLayer.m; sourceTree = "<group>"; };
 		C6C92EAB1A9F0E4100A82AB5 /* NodeView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NodeView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6C92EAE1A9F0E4100A82AB5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C6C92EB01A9F0E4100A82AB5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -140,6 +143,8 @@
 				C6E42A771A9F0EBE005ADDF7 /* NodeView.m */,
 				C6E722031AA432AC002CC1AC /* CircleView.h */,
 				C6E722041AA432AC002CC1AC /* CircleView.m */,
+				C65A65111AA58130003DE36D /* NodeViewLayer.h */,
+				C65A65121AA58130003DE36D /* NodeViewLayer.m */,
 			);
 			path = NodeView;
 			sourceTree = "<group>";
@@ -271,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C65A65131AA58130003DE36D /* NodeViewLayer.m in Sources */,
 				C6C92EBF1A9F0E4100A82AB5 /* AppDelegate.m in Sources */,
 				C6E42A781A9F0EBE005ADDF7 /* NodeView.m in Sources */,
 				C6E722051AA432AC002CC1AC /* CircleView.m in Sources */,
