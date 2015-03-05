@@ -29,7 +29,7 @@
     if (self) {
         [(NodeViewLayer *)self.layer setNodeViewLayerDelegate:self];
         
-        UITapGestureRecognizer *tapGestureRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTapHandler)];
+        UITapGestureRecognizer *tapGestureRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(viewTapHandler:)];
         tapGestureRecognizer.numberOfTapsRequired=1;
         tapGestureRecognizer.numberOfTouchesRequired=1;
         [self addGestureRecognizer:tapGestureRecognizer];

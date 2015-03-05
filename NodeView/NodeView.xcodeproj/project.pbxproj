@@ -27,6 +27,8 @@
 		C6E722051AA432AC002CC1AC /* CircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = C6E722041AA432AC002CC1AC /* CircleView.m */; };
 		C6E722071AA44810002CC1AC /* lyn.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C6E722061AA44810002CC1AC /* lyn.jpg */; };
 		C6E722091AA44B88002CC1AC /* secret.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C6E722081AA44B88002CC1AC /* secret.jpg */; };
+		C6EDD4711AA5BE80007ED98B /* 4minute.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C6EDD4701AA5BE80007ED98B /* 4minute.jpg */; };
+		C6EDD4731AA5BEDD007ED98B /* apink.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C6EDD4721AA5BEDD007ED98B /* apink.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		C6E722041AA432AC002CC1AC /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleView.m; sourceTree = "<group>"; };
 		C6E722061AA44810002CC1AC /* lyn.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lyn.jpg; sourceTree = "<group>"; };
 		C6E722081AA44B88002CC1AC /* secret.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = secret.jpg; sourceTree = "<group>"; };
+		C6EDD4701AA5BE80007ED98B /* 4minute.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4minute.jpg; sourceTree = "<group>"; };
+		C6EDD4721AA5BEDD007ED98B /* apink.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = apink.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,8 @@
 		C6C92EB41A9F0E4100A82AB5 /* NodeView */ = {
 			isa = PBXGroup;
 			children = (
+				C6EDD4721AA5BEDD007ED98B /* apink.jpg */,
+				C6EDD4701AA5BE80007ED98B /* 4minute.jpg */,
 				C6E42A791A9F27B0005ADDF7 /* davichi.jpg */,
 				C6E722081AA44B88002CC1AC /* secret.jpg */,
 				C6E722061AA44810002CC1AC /* lyn.jpg */,
@@ -254,9 +260,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C6C92EB91A9F0E4100A82AB5 /* InfoPlist.strings in Resources */,
+				C6EDD4731AA5BEDD007ED98B /* apink.jpg in Resources */,
 				C6C92EC11A9F0E4100A82AB5 /* Images.xcassets in Resources */,
 				C6E42A7A1A9F27B0005ADDF7 /* davichi.jpg in Resources */,
 				C6E722071AA44810002CC1AC /* lyn.jpg in Resources */,
+				C6EDD4711AA5BE80007ED98B /* 4minute.jpg in Resources */,
 				C6E722091AA44B88002CC1AC /* secret.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
