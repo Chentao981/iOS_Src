@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>996C40B6-F228-4BDD-B7F5-47D2A5577632</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ImageZoom</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>BA67746A9A63C579256F1E1AEA9A928D18873862</key>
+		<string>https://github.com/Chentao981/iOS_Src.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ImageZoom/ImageZoom.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>BA67746A9A63C579256F1E1AEA9A928D18873862</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Chentao981/iOS_Src.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>BA67746A9A63C579256F1E1AEA9A928D18873862</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BA67746A9A63C579256F1E1AEA9A928D18873862</string>
+			<key>IDESourceControlWCCName</key>
+			<string>GitHub</string>
+		</dict>
+	</array>
+</dict>
+</plist>
