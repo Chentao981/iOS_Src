@@ -128,6 +128,9 @@
 		UInt64 fileSize = response.expectedContentLength;
 		//从头开始下载文件
 		[self createFileWithDirectory:self.saveDirectory andFileName:self.fileName andMarkName:markFileName andFileSize:fileSize];
+		if (self.delegate && [self.delegate respondsToSelector:@selector(fileDownloadStart:andStartBreakpoints:andFileSize:)]) {
+			[self.delegate fileDownloadStart:self andStartBreakpoints:breakpoints andFileSize:fileSize];
+		}
 	}
 	else {
 		NSString *markFilePath = [self.saveDirectory stringByAppendingPathComponent:markFileName];

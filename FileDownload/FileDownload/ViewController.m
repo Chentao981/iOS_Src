@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 #import "FileDownloadHandler.h"
+#import "FileDownloadManager.h"
 
 @interface ViewController () <FileDownloadHandlerDelegate>
 
@@ -16,12 +17,14 @@
 
 @implementation ViewController
 {
-	FileDownloadHandler *fileDownloadHandler;
+	//FileDownloadHandler *fileDownloadHandler;
+	FileDownloadManager *fileDownloadManager;
 }
 
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+
 
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *docDir = [paths objectAtIndex:0];
@@ -29,11 +32,10 @@
 	NSString *fileUrl = @"http://api.jxedt.com/video/tech/?id=10003";
 	NSURL *url = [NSURL URLWithString:fileUrl];
 
-	fileDownloadHandler = [[FileDownloadHandler alloc]init];
+
+	fileDownloadManager = [FileDownloadManager sharedInstance];
+	FileDownloadHandler *fileDownloadHandler = [fileDownloadManager addDownloadTaskWithId:@"file01" andDownloadUrl:url andSaveDirectory:docDir andSaveName:@"test.mp4"];
 	fileDownloadHandler.delegate = self;
-	fileDownloadHandler.saveDirectory = docDir;
-	fileDownloadHandler.fileName = @"test.mp4";
-	fileDownloadHandler.downloadUrl = url;
 	[fileDownloadHandler start];
 }
 
@@ -42,7 +44,9 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-	[fileDownloadHandler stop];
+	//[fileDownloadHandler stop];
+
+	[fileDownloadManager removeDownloadTaskWithId:@"file01"];
 }
 
 #pragma mark-

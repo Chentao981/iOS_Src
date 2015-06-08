@@ -15,6 +15,7 @@
 		C69055E71B2458D300BEC56A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C69055E51B2458D300BEC56A /* LaunchScreen.xib */; };
 		C69055F31B2458D300BEC56A /* FileDownloadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C69055F21B2458D300BEC56A /* FileDownloadTests.m */; };
 		C69055FF1B245A3700BEC56A /* FileDownloadHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C69055FE1B245A3700BEC56A /* FileDownloadHandler.m */; };
+		C6D37BB51B2587BF00D64AFA /* FileDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D37BB41B2587BF00D64AFA /* FileDownloadManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,8 @@
 		C69055F21B2458D300BEC56A /* FileDownloadTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileDownloadTests.m; sourceTree = "<group>"; };
 		C69055FD1B245A3700BEC56A /* FileDownloadHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDownloadHandler.h; sourceTree = "<group>"; };
 		C69055FE1B245A3700BEC56A /* FileDownloadHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileDownloadHandler.m; sourceTree = "<group>"; };
+		C6D37BB31B2587BF00D64AFA /* FileDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDownloadManager.h; sourceTree = "<group>"; };
+		C6D37BB41B2587BF00D64AFA /* FileDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileDownloadManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +129,8 @@
 		C69055FC1B2459F400BEC56A /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				C6D37BB31B2587BF00D64AFA /* FileDownloadManager.h */,
+				C6D37BB41B2587BF00D64AFA /* FileDownloadManager.m */,
 				C69055FD1B245A3700BEC56A /* FileDownloadHandler.h */,
 				C69055FE1B245A3700BEC56A /* FileDownloadHandler.m */,
 			);
@@ -235,6 +240,7 @@
 				C69055DF1B2458D300BEC56A /* ViewController.m in Sources */,
 				C69055DC1B2458D300BEC56A /* AppDelegate.m in Sources */,
 				C69055FF1B245A3700BEC56A /* FileDownloadHandler.m in Sources */,
+				C6D37BB51B2587BF00D64AFA /* FileDownloadManager.m in Sources */,
 				C69055D91B2458D300BEC56A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,6 +438,7 @@
 				C69055F81B2458D300BEC56A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C69055F91B2458D300BEC56A /* Build configuration list for PBXNativeTarget "FileDownloadTests" */ = {
 			isa = XCConfigurationList;
@@ -440,6 +447,7 @@
 				C69055FB1B2458D300BEC56A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
