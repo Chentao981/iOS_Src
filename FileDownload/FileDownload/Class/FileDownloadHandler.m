@@ -9,6 +9,8 @@
 #import "FileDownloadHandler.h"
 #import <CommonCrypto/CommonCrypto.h>
 
+#define CustomErrorDomain @"FileDownloadHandler"
+
 #define FIELD_FILESIZE @"fileSize"
 
 #pragma mark- FileMark 定义
@@ -70,7 +72,8 @@
 						}
 						else {
 							if (self.delegate && [self.delegate respondsToSelector:@selector(fileDownloadFail:andError:)]) {
-								[self.delegate fileDownloadFail:self andError:nil];
+								NSError *error = [NSError errorWithDomain:CustomErrorDomain code:FileDownloadErrorTypeBreakpointsOutOfRange userInfo:nil];
+								[self.delegate fileDownloadFail:self andError:error];
 							}
 						}
 					}
@@ -96,7 +99,16 @@
 	}
 	else {
 		if (self.delegate && [self.delegate respondsToSelector:@selector(fileDownloadFail:andError:)]) {
-			[self.delegate fileDownloadFail:self andError:nil];
+			if (!self.downloadUrl) {
+				NSError *error = [NSError errorWithDomain:CustomErrorDomain code:FileDownloadErrorTypeInvalidDownloadURL userInfo:nil];
+				[self.delegate fileDownloadFail:self andError:error];
+				return;
+			}
+			if ([self stringIsEmpty:self.saveDirectory]) {
+				NSError *error = [NSError errorWithDomain:CustomErrorDomain code:FileDownloadErrorTypeInvalidSaveDirectory userInfo:nil];
+				[self.delegate fileDownloadFail:self andError:error];
+				return;
+			}
 		}
 	}
 }
@@ -145,7 +157,8 @@
 				//下载出错，标记文件不存在
 				[connection cancel];
 				if (self.delegate && [self.delegate respondsToSelector:@selector(fileDownloadFail:andError:)]) {
-					[self.delegate fileDownloadFail:self andError:nil];
+					NSError *error = [NSError errorWithDomain:CustomErrorDomain code:FileDownloadErrorTypeBreakpointsFileNotExist userInfo:nil];
+					[self.delegate fileDownloadFail:self andError:error];
 				}
 			}
 		}
@@ -153,7 +166,8 @@
 			//下载出错，保存在本地的文件不存在
 			[connection cancel];
 			if (self.delegate && [self.delegate respondsToSelector:@selector(fileDownloadFail:andError:)]) {
-				[self.delegate fileDownloadFail:self andError:nil];
+				NSError *error = [NSError errorWithDomain:CustomErrorDomain code:FileDownloadErrorTypeBreakpointsFileNotExist userInfo:nil];
+				[self.delegate fileDownloadFail:self andError:error];
 			}
 		}
 	}

@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM (NSUInteger, FileDownloadErrorType) {
+	FileDownloadErrorTypeInvalidDownloadURL = 1001, //无效的下载URL.
+	FileDownloadErrorTypeInvalidSaveDirectory,      //无效的存储目录.
+	FileDownloadErrorTypeBreakpointsOutOfRange,     //下载点超出文件大小.
+	FileDownloadErrorTypeBreakpointsFileNotExist,     //断点文件不存在.
+};
+
+
 @interface FileMark : NSObject <NSCoding>
 @property (nonatomic, assign) UInt64 fileSize;
 @end
