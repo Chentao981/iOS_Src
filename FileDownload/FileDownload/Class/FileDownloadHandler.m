@@ -102,6 +102,12 @@
 }
 
 - (void)stop {
+	if (urlConnection) {
+		[urlConnection cancel];
+	}
+	if (fileHandle) {
+		[fileHandle closeFile];
+	}
 }
 
 #pragma mark- NSURLConnectionDataDelegate代理方法

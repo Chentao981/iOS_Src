@@ -23,10 +23,8 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *docDir = [paths objectAtIndex:0];
-
 
 	NSString *fileUrl = @"http://api.jxedt.com/video/tech/?id=10003";
 	NSURL *url = [NSURL URLWithString:fileUrl];
@@ -37,13 +35,14 @@
 	fileDownloadHandler.fileName = @"test.mp4";
 	fileDownloadHandler.downloadUrl = url;
 	[fileDownloadHandler start];
-
-	// Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
-	// Dispose of any resources that can be recreated.
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	[fileDownloadHandler stop];
 }
 
 #pragma mark-
