@@ -10,7 +10,7 @@
 
 #import "FileDownloadHandler.h"
 
-@interface ViewController ()
+@interface ViewController () <FileDownloadHandlerDelegate>
 
 @end
 
@@ -32,10 +32,11 @@
 	NSURL *url = [NSURL URLWithString:fileUrl];
 
 	fileDownloadHandler = [[FileDownloadHandler alloc]init];
+	fileDownloadHandler.delegate = self;
 	fileDownloadHandler.saveDirectory = docDir;
 	fileDownloadHandler.fileName = @"test.mp4";
 	fileDownloadHandler.downloadUrl = url;
-	[fileDownloadHandler start:NO];
+	[fileDownloadHandler start];
 
 	// Do any additional setup after loading the view, typically from a nib.
 }
@@ -43,6 +44,39 @@
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
 	// Dispose of any resources that can be recreated.
+}
+
+#pragma mark-
+/**
+ * 文件开始下载时的回调方法;
+ * breakpoints 开始下载时的断点;
+ * fileSize 文件的总大小;
+ **/
+- (void)fileDownloadStart:(FileDownloadHandler *)fileDownloadHandler andStartBreakpoints:(UInt64)breakpoints andFileSize:(UInt64)fileSize {
+	NSLog(@"开始下载文件 fileSize：%llu  breakpoints：%llu", fileSize, breakpoints);
+}
+
+/**
+ * 文件下载中的回调方法;
+ * downloadFileSize 已经下载的文件大小;
+ * fileSize 文件的总大小;
+ **/
+- (void)fileDownloadProgress:(FileDownloadHandler *)fileDownloadHandler andDownloadFileSize:(UInt64)downloadFileSize andFileSize:(UInt64)fileSize {
+	NSLog(@"下载文件中 fileSize：%llu  downloadFileSize：%llu progress:%f", fileSize, downloadFileSize, (double)downloadFileSize / fileSize);
+}
+
+/**
+ * 文件下载完成的回调方法;
+ **/
+- (void)fileDownloadComplete:(FileDownloadHandler *)fileDownloadHandler {
+	NSLog(@"下载完成.");
+}
+
+/**
+ * 文件下载失败的回调方法;
+ **/
+- (void)fileDownloadFail:(FileDownloadHandler *)fileDownloadHandler andError:(NSError *)error {
+	NSLog(@"下载出错了....");
 }
 
 @end

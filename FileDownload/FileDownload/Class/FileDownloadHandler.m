@@ -35,19 +35,64 @@
 
 @implementation FileDownloadHandler
 {
-	NSURLConnection *connection;
+	NSURLConnection *urlConnection;
 	NSFileHandle *fileHandle;
+	UInt64 breakpoints;
+
+	NSString *markFileName;
 }
 
-- (void)start:(BOOL)breakpoints {
-	if (self.downloadUrl && self.saveDirectory) {
-		NSURLRequest *request = [NSURLRequest requestWithURL:self.downloadUrl];
-		if (breakpoints) {
+- (void)start {
+	if (self.downloadUrl && ![self stringIsEmpty:self.saveDirectory]) {
+		if (![self stringIsEmpty:self.fileName]) {
+			//如果fileName不为空
+			NSString *saveFilePath = [self.saveDirectory stringByAppendingPathComponent:self.fileName];
+			if ([self fileExistsAtPath:saveFilePath]) {
+				//获取标记文件
+				markFileName = [self md5:self.downloadUrl.absoluteString];
+				NSString *markFilePath = [self.saveDirectory stringByAppendingPathComponent:markFileName];
+				if ([self fileExistsAtPath:markFilePath]) {
+					FileMark *fileMark = [NSKeyedUnarchiver unarchiveObjectWithFile:markFilePath];
+					if (fileMark) {
+						UInt64 fileSize = fileMark.fileSize;
+						//获取已经下载的文件大小
+						NSFileHandle *downloadFileHandle = [NSFileHandle fileHandleForWritingAtPath:saveFilePath];
+						UInt64 downloadFileSize = [downloadFileHandle seekToEndOfFile];
+						if (downloadFileSize ==  fileSize) {
+							//文件已经下载完成
+							if (self.delegate && [self.delegate respondsToSelector:@selector(fileDownloadComplete:)]) {
+								[self.delegate fileDownloadComplete:self];
+							}
+						}
+						else if (downloadFileSize <  fileSize) {
+							//文件未下载完成,从断点开始下载
+							[self startDownloadWithURL:self.downloadUrl andBreakpoints:downloadFileSize];
+						}
+						else {
+							if (self.delegate && [self.delegate respondsToSelector:@selector(fileDownloadFail:andError:)]) {
+								[self.delegate fileDownloadFail:self andError:nil];
+							}
+						}
+					}
+					else {
+						//如果mark文件不存在，则直接开始下载
+						[self startDownloadWithURL:self.downloadUrl andBreakpoints:0];
+					}
+				}
+				else {
+					//如果mark文件不存在，则直接开始下载
+					[self startDownloadWithURL:self.downloadUrl andBreakpoints:0];
+				}
+			}
+			else {
+				//如果文件不存在，则直接开始下载
+				[self startDownloadWithURL:self.downloadUrl andBreakpoints:0];
+			}
 		}
 		else {
+			//如果文件名称为空则直接开始下载，下载完成后的文件名为服务器上的文件名
+			[self startDownloadWithURL:self.downloadUrl andBreakpoints:0];
 		}
-		connection = [[NSURLConnection alloc]initWithRequest:request delegate:self startImmediately:NO];
-		[connection start];
 	}
 	else {
 		if (self.delegate && [self.delegate respondsToSelector:@selector(fileDownloadFail:andError:)]) {
@@ -63,43 +108,69 @@
 
 //当接收到服务器的响应（连通了服务器）时会调用
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-	UInt64 fileSize = response.expectedContentLength;
-	if (self.delegate && [self.delegate respondsToSelector:@selector(fileDownloadStart:andStartBreakpoints:andFileSize:)]) {
-		[self.delegate fileDownloadStart:self andStartBreakpoints:0 andFileSize:fileSize];
+	if ([self stringIsEmpty:self.fileName]) {
+		self.fileName = response.suggestedFilename;
 	}
 
 	NSString *saveFilePath = [self.saveDirectory stringByAppendingPathComponent:self.fileName];
-	NSFileManager *fileManager = [NSFileManager defaultManager];
 
-	if (![fileManager isExecutableFileAtPath:saveFilePath]) {
-		//如果文件不存在则创建一个
-		[fileManager createFileAtPath:saveFilePath contents:nil attributes:nil];
+	if ([self stringIsEmpty:markFileName]) {
+		markFileName = [self md5:self.downloadUrl.absoluteString];
+	}
 
-		//说明文件是第一次下载，创建标记文件
-		NSString *markFileName = [self md5:self.downloadUrl.absoluteString];
-		NSString *markFilePath = [self.saveDirectory stringByAppendingPathComponent:markFileName];
-
-		FileMark *fileMark = [[FileMark alloc]init];
-		fileMark.fileSize = fileSize;
-		[NSKeyedArchiver archiveRootObject:fileMark toFile:markFilePath];
+	if (0 == breakpoints) {
+		UInt64 fileSize = response.expectedContentLength;
+		//从头开始下载文件
+		[self createFileWithDirectory:self.saveDirectory andFileName:self.fileName andMarkName:markFileName andFileSize:fileSize];
 	}
 	else {
+		NSString *markFilePath = [self.saveDirectory stringByAppendingPathComponent:markFileName];
+		if ([self fileExistsAtPath:saveFilePath] && [self fileExistsAtPath:markFilePath]) {
+			FileMark *fileMark = [NSKeyedUnarchiver unarchiveObjectWithFile:markFilePath];
+			if (fileMark) {
+				if (self.delegate && [self.delegate respondsToSelector:@selector(fileDownloadStart:andStartBreakpoints:andFileSize:)]) {
+					[self.delegate fileDownloadStart:self andStartBreakpoints:breakpoints andFileSize:fileMark.fileSize];
+				}
+			}
+			else {
+				//下载出错，标记文件不存在
+				[connection cancel];
+				if (self.delegate && [self.delegate respondsToSelector:@selector(fileDownloadFail:andError:)]) {
+					[self.delegate fileDownloadFail:self andError:nil];
+				}
+			}
+		}
+		else {
+			//下载出错，保存在本地的文件不存在
+			[connection cancel];
+			if (self.delegate && [self.delegate respondsToSelector:@selector(fileDownloadFail:andError:)]) {
+				[self.delegate fileDownloadFail:self andError:nil];
+			}
+		}
 	}
 	fileHandle = [NSFileHandle fileHandleForWritingAtPath:saveFilePath];
 }
 
 //当接收到服务器的数据时会调用（可能会被调用多次，每次只传递部分数据）
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-	NSLog(@"length:%lu", (unsigned long)data.length);
-
-	[fileHandle seekToEndOfFile];
+	UInt64 downloadFileSize = [fileHandle seekToEndOfFile];
 	[fileHandle writeData:data];
+	downloadFileSize += data.length;
+
+	if (self.delegate && [self.delegate respondsToSelector:@selector(fileDownloadProgress:andDownloadFileSize:andFileSize:)]) {
+		NSString *markFilePath = [self.saveDirectory stringByAppendingPathComponent:markFileName];
+		FileMark *fileMark = [NSKeyedUnarchiver unarchiveObjectWithFile:markFilePath];
+		[self.delegate fileDownloadProgress:self andDownloadFileSize:downloadFileSize andFileSize:fileMark.fileSize];
+	}
 }
 
 //当服务器的数据加载完毕时就会调用
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
 	if (fileHandle) {
 		[fileHandle closeFile];
+	}
+	if (self.delegate && [self.delegate respondsToSelector:@selector(fileDownloadComplete:)]) {
+		[self.delegate fileDownloadComplete:self];
 	}
 }
 
@@ -108,6 +179,43 @@
 	if (fileHandle) {
 		[fileHandle closeFile];
 	}
+	[connection cancel];
+}
+
+#pragma mark-
+
+- (void)dealloc {
+	[urlConnection cancel];
+	if (fileHandle) {
+		[fileHandle closeFile];
+	}
+}
+
+- (void)createFileWithDirectory:(NSString *)directory andFileName:(NSString *)name andMarkName:(NSString *)markName andFileSize:(UInt64)fileSize {
+	NSString *saveFilePath = [directory stringByAppendingPathComponent:name];
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	[fileManager createFileAtPath:saveFilePath contents:nil attributes:nil];
+
+	NSString *markFilePath = [directory stringByAppendingPathComponent:markName];
+	FileMark *fileMark = [[FileMark alloc]init];
+	fileMark.fileSize = fileSize;
+	[NSKeyedArchiver archiveRootObject:fileMark toFile:markFilePath];
+}
+
+/**
+ * 开始下载文件
+ * url
+ * breakpoints 下载开始点
+ **/
+- (void)startDownloadWithURL:(NSURL *)url andBreakpoints:(UInt64)point {
+	breakpoints = point;
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.downloadUrl];
+	if (breakpoints > 0) {
+		NSString *requestRange = [NSString stringWithFormat:@"bytes=%llu-", point];
+		[request setValue:requestRange forHTTPHeaderField:@"Range"];
+	}
+	urlConnection = [[NSURLConnection alloc]initWithRequest:request delegate:self startImmediately:NO];
+	[urlConnection start];
 }
 
 /**
@@ -127,6 +235,18 @@
 	        result[8], result[9], result[10], result[11],
 	        result[12], result[13], result[14], result[15]
 	];
+}
+
+- (BOOL)fileExistsAtPath:(NSString *)filePath {
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	return [fileManager fileExistsAtPath:filePath];
+}
+
+- (BOOL)stringIsEmpty:(NSString *)string {
+	if (string && string.length > 0) {
+		return NO;
+	}
+	return YES;
 }
 
 @end

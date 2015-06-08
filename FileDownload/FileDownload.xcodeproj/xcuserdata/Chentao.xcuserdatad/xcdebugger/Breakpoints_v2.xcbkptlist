@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FileDownload/Class/FileDownloadHandler.m"
-            timestampString = "455382519.161089"
+            filePath = "FileDownload/ViewController.m"
+            timestampString = "455438783.724955"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "-connection:didReceiveResponse:"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "-fileDownloadStart:andStartBreakpoints:andFileSize:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

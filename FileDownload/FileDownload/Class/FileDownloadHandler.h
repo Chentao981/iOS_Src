@@ -1,7 +1,7 @@
 //
 //  FileDownloadHandler.h
 //  FileDownload
-//
+//  单个文件的断点下载
 //  Created by 陈涛 on 15/6/7.
 //  Copyright (c) 2015年 chen. All rights reserved.
 //
@@ -49,34 +49,32 @@
 @property (nonatomic, weak) id <FileDownloadHandlerDelegate> delegate;
 
 /**
- *要下载的文件的URL
+ * 要下载的文件的URL
  **/
 @property (nonatomic, strong) NSURL *downloadUrl;
 
 /**
- *下载的文件存储到本地的目录
+ * 下载的文件存储到本地的目录
  **/
 @property (nonatomic, copy) NSString *saveDirectory;
 
 /**
- *下载的文件存储到本地的名字,如果不设置这个参数,将使用服务器返回的文件名
+ * 下载的文件存储到本地的名字,如果不设置这个参数,将使用服务器返回的文件名
  **/
 @property (nonatomic, copy) NSString *fileName;
 
 /**
- *用户数据
+ * 用户数据
  **/
 @property (nonatomic, strong) id userInfo;
 
 /**
-   *开始下载文件;
- * breakpoints为YES表示从断点开始下载;
- * breakpoints为NO表示重新下载文件;
+ * 开始下载文件;
  **/
-- (void)start:(BOOL)breakpoints;
+- (void)start;
 
 /**
-   *停止下载文件;
+ * 停止下载文件;
  **/
 - (void)stop;
 
