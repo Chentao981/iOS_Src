@@ -60,6 +60,7 @@
 						//获取已经下载的文件大小
 						NSFileHandle *downloadFileHandle = [NSFileHandle fileHandleForWritingAtPath:saveFilePath];
 						UInt64 downloadFileSize = [downloadFileHandle seekToEndOfFile];
+						[downloadFileHandle closeFile];
 						if (downloadFileSize ==  fileSize) {
 							//文件已经下载完成
 							if (self.delegate && [self.delegate respondsToSelector:@selector(fileDownloadComplete:)]) {
