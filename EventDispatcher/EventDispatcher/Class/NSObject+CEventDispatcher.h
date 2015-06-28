@@ -21,16 +21,16 @@
  */
 - (void)addEventListenerWithType:(NSString *)type andTarget:(id)target andAction:(SEL)action andPriority:(NSUInteger)priority;
 
-/**
- *  派发一个事件
- *
- *  @param event
- */
-- (void)dispatchEvent:(CEvent *)event;
-
-- (BOOL)hasEventListener:(NSString *)eventType;
-
-
-- (void)removeEventListenerWithType:(NSString *)type andTarget:(id)target action:(SEL)action;
+///**
+// *  派发一个事件
+// *
+// *  @param event
+// */
+//- (void)dispatchEvent:(CEvent *)event;
+//
+//- (BOOL)hasEventListener:(NSString *)eventType;
+//
+//
+//- (void)removeEventListenerWithType:(NSString *)type andTarget:(id)target action:(SEL)action;
 
 @end
