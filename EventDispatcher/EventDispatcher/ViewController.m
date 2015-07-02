@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "NSObject+CEventDispatcher.h"
 
 @interface ViewController ()
 
@@ -17,29 +18,51 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+	NSString *eventType = @"click";
 
-	[button addTarget:self action:@selector(onhandler) forControlEvents:UIControlEventTouchDown];
+	NSObject *obj = [[NSObject alloc]init];
 
-
-	SEL action1 = @selector(onhandler);
-	SEL action2 = @selector(initWithCoder:);
-
-
-	NSString *actionString = NSStringFromSelector(action2);  //*NSStringFromSelector (SEL aSelector);
-
-	NSLog(@"%@", actionString);
+	[obj addEventListenerWithType:eventType andTarget:self andAction:@selector(onClickHandler1:) andPriority:3];
+	[obj addEventListenerWithType:eventType andTarget:self andAction:@selector(onClickHandler2:) andPriority:1];
+	[obj addEventListenerWithType:eventType andTarget:self andAction:@selector(onClickHandler3:) andPriority:2];
+	[obj addEventListenerWithType:eventType andTarget:self andAction:@selector(onClickHandler4:) andPriority:4];
 
 
-	if (action1 == action2) {
-		NSLog(@"=");
-	}
-	else {
-		NSLog(@"!=");
-	}
+//	UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//
+//	[button addTarget:self action:@selector(onhandler) forControlEvents:UIControlEventTouchDown];
+//
+//
+//	SEL action1 = @selector(onhandler);
+//	SEL action2 = @selector(initWithCoder:);
+//
+//
+//	NSString *actionString = NSStringFromSelector(action2);  //*NSStringFromSelector (SEL aSelector);
+//
+//	NSLog(@"%@", actionString);
+//
+//
+//	if (action1 == action2) {
+//		NSLog(@"=");
+//	}
+//	else {
+//		NSLog(@"!=");
+//	}
+//
+//
+//	NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+}
 
+- (void)onClickHandler1:(CEvent *)event {
+}
 
-	NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+- (void)onClickHandler2:(CEvent *)event {
+}
+
+- (void)onClickHandler3:(CEvent *)event {
+}
+
+- (void)onClickHandler4:(CEvent *)event {
 }
 
 - (void)onhandler {

@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EventDispatcher/ViewController.m"
-            timestampString = "456673959.211143"
+            filePath = "EventDispatcher/Class/NSObject+CEventDispatcher.m"
+            timestampString = "457546043.705535"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "-addEventListenerWithType:andTarget:andAction:andPriority:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
