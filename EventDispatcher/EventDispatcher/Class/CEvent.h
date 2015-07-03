@@ -10,6 +10,14 @@
 
 @interface CEvent : NSObject
 
+
+/**
+ *  事件的派发者
+ */
+@property (nonatomic, strong) id dispatcherOwner;
+
+
+
 /**
  *  事件类型
  */

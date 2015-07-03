@@ -16,21 +16,30 @@
  *
  *  @param type     时间类型
  *  @param target   事件的响应者
- *  @param action   响应者的方法
+ *  @param action   响应者的方法 方法的格式如: -(void)action:(CEvent *)event;
  *  @param priority 监听器的优先级
  */
 - (void)addEventListenerWithType:(NSString *)type andTarget:(id)target andAction:(SEL)action andPriority:(NSUInteger)priority;
 
-///**
-// *  派发一个事件
-// *
-// *  @param event
-// */
-//- (void)dispatchEvent:(CEvent *)event;
-//
-//- (BOOL)hasEventListener:(NSString *)eventType;
-//
-//
-//- (void)removeEventListenerWithType:(NSString *)type andTarget:(id)target action:(SEL)action;
+/**
+ *  派发一个事件
+ *
+ *  @param event
+ */
+- (void)dispatchEvent:(CEvent *)event;
+
+/**
+ *  移除事件监听
+ *
+ *  @param type
+ *  @param target
+ *  @param action
+ */
+- (void)removeEventListenerWithType:(NSString *)type andTarget:(id)target action:(SEL)action;
+
+/**
+ *  移除所有事件监听
+ */
+- (void)removeAllEventListener;
 
 @end
