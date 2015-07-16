@@ -9,6 +9,9 @@
 #import "ViewController.h"
 #import "NSObject+CEventDispatcher.h"
 
+#import "EventHandler.h"
+#import "EventHandler2.h"
+
 @interface ViewController ()
 
 @end
@@ -18,107 +21,99 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  NSString *eventType = @"click";
+  NSString *eventType1 = @"click1";
+  //  NSString *eventType2 = @"click2";
 
   NSObject *obj = [[NSObject alloc] init];
 
-  //添加事件监听
-  [obj addEventListenerWithType:eventType
+  EventHandler *eh1 = [[EventHandler alloc] init];
+  eh1.target = obj;
+
+  EventHandler2 *eh2 = [[EventHandler2 alloc] init];
+  eh2.target = obj;
+
+  [obj addEventListenerWithType:eventType1
                       andTarget:self
-                      andAction:@selector(onClickHandler1:)
-                    andPriority:1];
-  [obj addEventListenerWithType:eventType
-                      andTarget:self
-                      andAction:@selector(onClickHandler2:)
-                    andPriority:1];
-  [obj addEventListenerWithType:eventType
-                      andTarget:self
-                      andAction:@selector(onClickHandler3:)
-                    andPriority:2];
-  [obj addEventListenerWithType:eventType
-                      andTarget:self
-                      andAction:@selector(onClickHandler4:)
-                    andPriority:2];
+                      andAction:@selector(onClickHandler1:)];
 
-  CEvent *event1 = [[CEvent alloc] init];
-  event1.type = eventType;
-  event1.data = [NSNumber numberWithFloat:1010.01];
-  //派发事件
-  [obj dispatchEvent:event1];
+  CEvent *e = [[CEvent alloc] initWithType:eventType1 andData:nil];
+  e.data = @"text";
+  [obj dispatchEvent:e];
 
-  //移除一个监听器
-  [obj removeEventListenerWithType:eventType
-                         andTarget:self
-                            action:@selector(onClickHandler4:)];
-  [obj removeEventListenerWithType:eventType
-                         andTarget:self
-                            action:@selector(onClickHandler3:)];
-  [obj removeEventListenerWithType:eventType
-                         andTarget:self
-                            action:@selector(onClickHandler1:)];
+  [obj dispatchEvent:e];
 
-  [obj removeEventListenerWithType:eventType
-                         andTarget:self
-                            action:@selector(onClickHandler2:)];
-
-  CEvent *event2 = [[CEvent alloc] init];
-  event2.type = eventType;
-  event2.data = [NSNumber numberWithFloat:2020.02];
-  //派发事件
-  [obj dispatchEvent:event2];
-
-  //移除所有事件监听
-  [obj removeAllEventListener];
-
-  CEvent *event3 = [[CEvent alloc] init];
-  event3.type = eventType;
-  event3.data = [NSNumber numberWithFloat:3030.03];
-  //派发事件
-  [obj dispatchEvent:event3];
-
-  //添加事件监听
-  [obj addEventListenerWithType:eventType
-                      andTarget:self
-                      andAction:@selector(onClickHandler3:)
-                    andPriority:2];
-  [obj addEventListenerWithType:eventType
-                      andTarget:self
-                      andAction:@selector(onClickHandler4:)
-                    andPriority:2];
-
-  [obj removeEventListenerWithType:eventType
-                         andTarget:self
-                            action:@selector(onClickHandler2:)];
-
-  CEvent *event4 = [[CEvent alloc] init];
-  event4.type = eventType;
-  event4.data = [NSNumber numberWithFloat:4040.04];
-  //派发事件
-  [obj dispatchEvent:event4];
+  //  NSString *eventType1 = @"click1";
+  //  NSString *eventType2 = @"click2";
+  //
+  //  NSObject *obj = [[NSObject alloc] init];
+  //
+  //  [obj addEventListenerWithType:eventType1
+  //                      andTarget:self
+  //                      andAction:@selector(onClickHandler1:)];
+  //
+  //  [obj addEventListenerWithType:eventType1
+  //                      andTarget:self
+  //                      andAction:@selector(onClickHandler2:)];
+  //
+  //  [obj addEventListenerWithType:eventType1
+  //                      andTarget:self
+  //                      andAction:@selector(onClickHandler3:)];
+  //
+  //  [obj addEventListenerWithType:eventType1
+  //                      andTarget:self
+  //                      andAction:@selector(onClickHandler4:)];
+  //
+  //  CEvent *e = [[CEvent alloc] initWithType:eventType1 andData:nil];
+  //  e.data = @"text";
+  //  [obj dispatchEvent:e];
+  //
+  //  [obj addEventListenerWithType:eventType2
+  //                      andTarget:self
+  //                      andAction:@selector(onClickHandler1:)];
+  //
+  //  [obj addEventListenerWithType:eventType2
+  //                      andTarget:self
+  //                      andAction:@selector(onClickHandler2:)];
+  //
+  //  [obj addEventListenerWithType:eventType2
+  //                      andTarget:self
+  //                      andAction:@selector(onClickHandler3:)];
+  //
+  //  [obj addEventListenerWithType:eventType2
+  //                      andTarget:self
+  //                      andAction:@selector(onClickHandler4:)];
+  //
+  //  CEvent *e2 = [[CEvent alloc] initWithType:eventType2 andData:nil];
+  //  e2.data = @"text2";
+  //  [obj dispatchEvent:e2];
 }
-
+//
 - (void)onClickHandler1:(CEvent *)event {
   NSLog(@"%s  %@", __FUNCTION__, event.data);
+//  [event.dispatcherOwner
+//      removeEventListenerWithType:@"click1"
+//                        andTarget:self
+//                           action:@selector(onClickHandler1:)];
 }
-
-- (void)onClickHandler2:(CEvent *)event {
-  NSLog(@"%s  %@", __FUNCTION__, event.data);
-}
-
-- (void)onClickHandler3:(CEvent *)event {
-  NSLog(@"%s  %@", __FUNCTION__, event.data);
-}
-
-- (void)onClickHandler4:(CEvent *)event {
-  NSLog(@"%s  %@", __FUNCTION__, event.data);
-}
+//
+//- (void)onClickHandler2:(CEvent *)event {
+//  NSLog(@"%s  %@", __FUNCTION__, event.data);
+//}
+//
+//- (void)onClickHandler3:(CEvent *)event {
+//  NSLog(@"%s  %@", __FUNCTION__, event.data);
+//}
+//
+//- (void)onClickHandler4:(CEvent *)event {
+//  NSLog(@"%s  %@", __FUNCTION__, event.data);
+//}
 
 - (void)onhandler {
 }
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+  // Dispose of any resources that can be recreated.
 }
 
 @end

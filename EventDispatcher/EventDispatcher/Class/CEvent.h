@@ -10,23 +10,20 @@
 
 @interface CEvent : NSObject
 
-
 /**
  *  事件的派发者
  */
-@property (nonatomic, strong) id dispatcherOwner;
-
-
+@property(nonatomic, strong) id dispatcherOwner;
 
 /**
  *  事件类型
  */
-@property (nonatomic, copy) NSString *type;
+@property(nonatomic, copy) NSString *type;
 
 /**
  *  事件所携带的数据
  */
-@property (nonatomic, strong) id data;
+@property(nonatomic, strong) id data;
 
 - (instancetype)initWithType:(NSString *)type andData:(id)data;
 

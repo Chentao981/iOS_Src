@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C6D85A901B57A3AD00F98E90 /* EventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D85A8F1B57A3AD00F98E90 /* EventHandler.m */; };
+		C6D85A931B57A48C00F98E90 /* EventHandler2.m in Sources */ = {isa = PBXBuildFile; fileRef = C6D85A921B57A48C00F98E90 /* EventHandler2.m */; };
 		C6F7F1BA1B38077C00BE8370 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F7F1B91B38077C00BE8370 /* main.m */; };
 		C6F7F1BD1B38077C00BE8370 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F7F1BC1B38077C00BE8370 /* AppDelegate.m */; };
 		C6F7F1C01B38077C00BE8370 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C6F7F1BF1B38077C00BE8370 /* ViewController.m */; };
@@ -29,6 +31,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C6D85A8E1B57A3AD00F98E90 /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventHandler.h; sourceTree = "<group>"; };
+		C6D85A8F1B57A3AD00F98E90 /* EventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventHandler.m; sourceTree = "<group>"; };
+		C6D85A911B57A48C00F98E90 /* EventHandler2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventHandler2.h; sourceTree = "<group>"; };
+		C6D85A921B57A48C00F98E90 /* EventHandler2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventHandler2.m; sourceTree = "<group>"; };
 		C6F7F1B41B38077C00BE8370 /* EventDispatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventDispatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6F7F1B81B38077C00BE8370 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C6F7F1B91B38077C00BE8370 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -96,6 +102,10 @@
 				C6F7F1C41B38077C00BE8370 /* Images.xcassets */,
 				C6F7F1C61B38077C00BE8370 /* LaunchScreen.xib */,
 				C6F7F1B71B38077C00BE8370 /* Supporting Files */,
+				C6D85A8E1B57A3AD00F98E90 /* EventHandler.h */,
+				C6D85A8F1B57A3AD00F98E90 /* EventHandler.m */,
+				C6D85A911B57A48C00F98E90 /* EventHandler2.h */,
+				C6D85A921B57A48C00F98E90 /* EventHandler2.m */,
 			);
 			path = EventDispatcher;
 			sourceTree = "<group>";
@@ -239,7 +249,9 @@
 			files = (
 				C6F7F1C01B38077C00BE8370 /* ViewController.m in Sources */,
 				C6F7F1E01B3807C300BE8370 /* NSObject+CEventDispatcher.m in Sources */,
+				C6D85A931B57A48C00F98E90 /* EventHandler2.m in Sources */,
 				C6F7F1BD1B38077C00BE8370 /* AppDelegate.m in Sources */,
+				C6D85A901B57A3AD00F98E90 /* EventHandler.m in Sources */,
 				C6F7F1BA1B38077C00BE8370 /* main.m in Sources */,
 				C6F7F1E61B380B6F00BE8370 /* CEvent.m in Sources */,
 			);
@@ -438,6 +450,7 @@
 				C6F7F1D91B38077C00BE8370 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C6F7F1DA1B38077C00BE8370 /* Build configuration list for PBXNativeTarget "EventDispatcherTests" */ = {
 			isa = XCConfigurationList;
@@ -446,6 +459,7 @@
 				C6F7F1DC1B38077C00BE8370 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
