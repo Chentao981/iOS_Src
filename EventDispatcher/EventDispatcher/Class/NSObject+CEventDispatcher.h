@@ -33,16 +33,14 @@
  */
 - (void)addEventListenerWithType:(NSString *)type
                        andTarget:(id)target
-                       andAction:(SEL)action
+                       andAction:(SEL)action;
 
-                                 /**
-                                  *  派发一个事件
-                                  *
-                                  *  @param event
-                                  */
-                                 -
-                                 (void)
-                   dispatchEvent:(CEvent *)event;
+/**
+ *  派发一个事件
+ *
+ *  @param event
+ */
+- (void)dispatchEvent:(CEvent *)event;
 
 /**
  *  移除事件监听

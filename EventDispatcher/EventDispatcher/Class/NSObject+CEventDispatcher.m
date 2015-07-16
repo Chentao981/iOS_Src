@@ -121,13 +121,25 @@ static const char EVENT_LISTENERS;
     NSString *actionStr = NSStringFromSelector(action);
     NSMutableDictionary *typeEventListeners = eventPriority.typeEventListeners;
 
-    for (NSString *key in typeEventListeners) {
+    NSMutableArray *keys = eventPriority.priorityArray;
+    for (NSInteger keyIndex = keys.count - 1; keyIndex >= 0; keyIndex--) {
+      NSNumber *keyNumber = [keys objectAtIndex:keyIndex];
+      NSString *key = [NSString stringWithFormat:@"%@", keyNumber];
       NSMutableArray *listeners = [typeEventListeners objectForKey:key];
-      for (CEventListener *listener in listeners) {
+      for (NSInteger listenerIndex = listeners.count - 1; listenerIndex >= 0;
+           listenerIndex--) {
+        CEventListener *listener = [listeners objectAtIndex:listenerIndex];
         NSMutableArray *actions = listener.actions;
         if ([actions containsObject:actionStr]) {
           [actions removeObject:actionStr];
         }
+        if (actions.count < 1) {
+          [listeners removeObject:listener];
+        }
+      }
+      if (listeners.count < 1) {
+        [keys removeObject:keyNumber];
+        [typeEventListeners removeObjectForKey:key];
       }
     }
   }
