@@ -14,9 +14,9 @@
   _target = target;
 
   [_target addEventListenerWithType:@"click1"
-                          andTarget:self
-                          andAction:@selector(click1Handler:)
-                        andPriority:1];
+                          target:self
+                          action:@selector(click1Handler:)
+                          priority:1];
 
   //  [_target addEventListenerWithType:@"click2"
   //                          andTarget:self
@@ -27,9 +27,7 @@
 - (void)click1Handler:(CEvent *)e {
   NSLog(@"%s  %@", __FUNCTION__, e.data);
 
-  [self.target removeEventListenerWithType:@"click1"
-                                 andTarget:self
-                                    action:@selector(click1Handler:)];
+//  [self.target removeEventListenerWithType:@"click1" target:self action:@selector(click1Handler:)];
 }
 
 - (void)click2Handler:(CEvent *)e {

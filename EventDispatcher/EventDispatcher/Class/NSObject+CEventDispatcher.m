@@ -12,7 +12,7 @@
 static const char EVENT_LISTENERS;
 
 @interface CEventListenerTarget : NSObject
-@property(nonatomic, strong) id target;
+@property(nonatomic, weak) id target;
 @property(nonatomic, copy) NSString *action;
 @end
 
@@ -31,134 +31,136 @@ static const char EVENT_LISTENERS;
 @implementation NSObject (CEventDispatcher)
 
 - (void)addEventListenerWithType:(NSString *)type
-                       andTarget:(id)target
-                       andAction:(SEL)action {
-  [self addEventListenerWithType:type
-                       andTarget:target
-                       andAction:action
-                     andPriority:1];
+                          target:(id)target
+                          action:(SEL)action {
+    [self addEventListenerWithType:type
+                            target:target
+                            action:action
+                          priority:1];
 }
 
 - (void)addEventListenerWithType:(NSString *)type
-                       andTarget:(id)target
-                       andAction:(SEL)action
-                     andPriority:(NSUInteger)priority {
-  CEventPriority *eventPriority = [[self eventListeners] objectForKey:type];
-  if (!eventPriority) {
-    eventPriority = [[CEventPriority alloc] init];
-    [[self eventListeners] setObject:eventPriority forKey:type];
-    eventPriority.typeEventListeners = [[NSMutableDictionary alloc] init];
-    eventPriority.priorityArray = [[NSMutableArray alloc] init];
-  }
-
-  NSNumber *priorityNumber = [NSNumber numberWithLongLong:priority];
-  NSString *priorityKey = [NSString stringWithFormat:@"%@", priorityNumber];
-
-  NSMutableArray *listeners =
-      [eventPriority.typeEventListeners objectForKey:priorityKey];
-  if (!listeners) {
-    listeners = [[NSMutableArray alloc] init];
-    [eventPriority.typeEventListeners setObject:listeners forKey:priorityKey];
-    [eventPriority.priorityArray addObject:priorityNumber];
-    NSArray *sortPriorityArray = [eventPriority.priorityArray
-        sortedArrayUsingSelector:@selector(compare:)];
-    eventPriority.priorityArray =
-        [NSMutableArray arrayWithArray:sortPriorityArray];
-  }
-
-  //判断监听器是否已经被添加过
-  NSString *actionStr = NSStringFromSelector(action);
-  for (NSInteger i = 0; i < listeners.count; i++) {
-    CEventListenerTarget *tempListener = [listeners objectAtIndex:i];
-    if (tempListener.target == target &&
-        [actionStr isEqualToString:tempListener.action]) {
-      return;
+                          target:(id)target
+                          action:(SEL)action
+                        priority:(NSUInteger)priority {
+    CEventPriority *eventPriority = [[self eventListeners] objectForKey:type];
+    if (!eventPriority) {
+        eventPriority = [[CEventPriority alloc] init];
+        [[self eventListeners] setObject:eventPriority forKey:type];
+        eventPriority.typeEventListeners = [[NSMutableDictionary alloc] init];
+        eventPriority.priorityArray = [[NSMutableArray alloc] init];
     }
-  }
-
-  CEventListenerTarget *listener = [[CEventListenerTarget alloc] init];
-  listener.target = target;
-  listener.action = actionStr;
-  [listeners insertObject:listener atIndex:0];
+    
+    NSNumber *priorityNumber = [NSNumber numberWithLongLong:priority];
+    NSString *priorityKey = [NSString stringWithFormat:@"%@", priorityNumber];
+    
+    NSMutableArray *listeners =
+    [eventPriority.typeEventListeners objectForKey:priorityKey];
+    if (!listeners) {
+        listeners = [[NSMutableArray alloc] init];
+        [eventPriority.typeEventListeners setObject:listeners forKey:priorityKey];
+        [eventPriority.priorityArray addObject:priorityNumber];
+        NSArray *sortPriorityArray = [eventPriority.priorityArray
+                                      sortedArrayUsingSelector:@selector(compare:)];
+        eventPriority.priorityArray =
+        [NSMutableArray arrayWithArray:sortPriorityArray];
+    }
+    
+    //判断监听器是否已经被添加过
+    NSString *actionStr = NSStringFromSelector(action);
+    for (NSInteger i = 0; i < listeners.count; i++) {
+        CEventListenerTarget *tempListener = [listeners objectAtIndex:i];
+        if (tempListener.target == target &&
+            [actionStr isEqualToString:tempListener.action]) {
+            return;
+        }
+    }
+    
+    CEventListenerTarget *listener = [[CEventListenerTarget alloc] init];
+    listener.target = target;
+    listener.action = actionStr;
+    [listeners insertObject:listener atIndex:0];
 }
 
 - (void)dispatchEvent:(CEvent *)event {
-  event.dispatcherOwner = self;
-  NSString *eventType = event.type;
-  CEventPriority *eventPriority =
-      [[self eventListeners] objectForKey:eventType];
-  if (eventPriority) {
-    NSArray *priorityArray = eventPriority.priorityArray;
-    NSUInteger priorityArrayLastIndex = priorityArray.count - 1;
-    for (NSInteger i = priorityArrayLastIndex; i >= 0; i--) {
-      NSNumber *priorityNumber = [priorityArray objectAtIndex:i];
-      NSString *priorityKey = [NSString stringWithFormat:@"%@", priorityNumber];
-      NSMutableArray *listeners =
-          [eventPriority.typeEventListeners objectForKey:priorityKey];
-
-      for (NSInteger listenerIndex = listeners.count - 1; listenerIndex >= 0;
-           listenerIndex--) {
-        CEventListenerTarget *listener =
-            [listeners objectAtIndex:listenerIndex];
-        [self executeListener:listener andEvent:event];
-      }
+    event.dispatcherOwner = self;
+    NSString *eventType = event.type;
+    CEventPriority *eventPriority =
+    [[self eventListeners] objectForKey:eventType];
+    if (eventPriority) {
+        NSArray *priorityArray = eventPriority.priorityArray;
+        NSUInteger priorityArrayLastIndex = priorityArray.count - 1;
+        for (NSInteger i = priorityArrayLastIndex; i >= 0; i--) {
+            NSNumber *priorityNumber = [priorityArray objectAtIndex:i];
+            NSString *priorityKey = [NSString stringWithFormat:@"%@", priorityNumber];
+            NSMutableArray *listeners = [eventPriority.typeEventListeners objectForKey:priorityKey];
+            
+            for (NSInteger listenerIndex = listeners.count - 1; listenerIndex >= 0; listenerIndex--) {
+                CEventListenerTarget *listener = [listeners objectAtIndex:listenerIndex];
+                id target = listener.target;
+                if (target) {
+                    [self executeListener:listener andEvent:event];
+                }else{
+                    [listeners removeObject:listener];
+                }
+            }
+        }
     }
-  }
 }
 
 - (void)removeEventListenerWithType:(NSString *)type
-                          andTarget:(id)target
+                             target:(id)target
                              action:(SEL)action {
-  CEventPriority *eventPriority = [[self eventListeners] objectForKey:type];
-  if (eventPriority) {
-    NSString *actionStr = NSStringFromSelector(action);
-    NSMutableDictionary *typeEventListeners = eventPriority.typeEventListeners;
-
-    NSMutableArray *keys = eventPriority.priorityArray;
-    for (NSInteger keyIndex = keys.count - 1; keyIndex >= 0; keyIndex--) {
-      NSNumber *keyNumber = [keys objectAtIndex:keyIndex];
-      NSString *key = [NSString stringWithFormat:@"%@", keyNumber];
-      NSMutableArray *listeners = [typeEventListeners objectForKey:key];
-      for (NSInteger listenerIndex = listeners.count - 1; listenerIndex >= 0;
-           listenerIndex--) {
-        CEventListenerTarget *listener =
-            [listeners objectAtIndex:listenerIndex];
-        if (listener.target == target &&
-            [listener.action isEqualToString:actionStr]) {
-          [listeners removeObject:listener];
+    CEventPriority *eventPriority = [[self eventListeners] objectForKey:type];
+    if (eventPriority) {
+        NSString *actionStr = NSStringFromSelector(action);
+        NSMutableDictionary *typeEventListeners = eventPriority.typeEventListeners;
+        
+        NSMutableArray *keys = eventPriority.priorityArray;
+        for (NSInteger keyIndex = keys.count - 1; keyIndex >= 0; keyIndex--) {
+            NSNumber *keyNumber = [keys objectAtIndex:keyIndex];
+            NSString *key = [NSString stringWithFormat:@"%@", keyNumber];
+            NSMutableArray *listeners = [typeEventListeners objectForKey:key];
+            for (NSInteger listenerIndex = listeners.count - 1; listenerIndex >= 0;
+                 listenerIndex--) {
+                CEventListenerTarget *listener =
+                [listeners objectAtIndex:listenerIndex];
+                if (listener.target == target &&
+                    [listener.action isEqualToString:actionStr]) {
+                    [listeners removeObject:listener];
+                }
+            }
+            if (listeners.count < 1) {
+                [keys removeObject:keyNumber];
+                [typeEventListeners removeObjectForKey:key];
+            }
         }
-      }
-      if (listeners.count < 1) {
-        [keys removeObject:keyNumber];
-        [typeEventListeners removeObjectForKey:key];
-      }
     }
-  }
 }
 
 - (void)removeAllEventListener {
-  objc_setAssociatedObject(self, &EVENT_LISTENERS, nil,
-                           OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &EVENT_LISTENERS, nil,
+                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (void)executeListener:(CEventListenerTarget *)listener
                andEvent:(CEvent *)event {
-  id target = listener.target;
-  if (target) {
-    SEL action = NSSelectorFromString(listener.action);
-    if ([target respondsToSelector:action]) {
-      [target performSelector:action withObject:event];
+    id target = listener.target;
+    if (target) {
+        SEL action = NSSelectorFromString(listener.action);
+        if ([target respondsToSelector:action]) {
+            [target performSelector:action withObject:event];
+        }
     }
-  }
 }
 
 - (NSMutableDictionary *)eventListeners {
-  NSMutableDictionary *eventListener =
-      objc_getAssociatedObject(self, &EVENT_LISTENERS);
-  if (!eventListener) {
-    eventListener = [[NSMutableDictionary alloc] init];
-    objc_setAssociatedObject(self, &EVENT_LISTENERS, eventListener,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    NSMutableDictionary *eventListener =
+    objc_getAssociatedObject(self, &EVENT_LISTENERS);
+    if (!eventListener) {
+        eventListener = [[NSMutableDictionary alloc] init];
+        objc_setAssociatedObject(self, &EVENT_LISTENERS, eventListener,
+                                 OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return eventListener;
 }
